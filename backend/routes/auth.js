@@ -9,7 +9,6 @@ const router = express.Router();
 const JWT_SECRET_TOKEN = "AnirudhPanwar2000";
 
 //Route 1: Creating a user using POST method;
-
 router.post('/createuser', [
     body('name', 'Enter a valid Name').isLength({ min: 3 }),
     body('email', 'Enter a valid E-mail').isEmail(),
@@ -21,7 +20,7 @@ router.post('/createuser', [
     }
     const existingUser = await User.findOne({ email: req.body.email });
     if (existingUser) {
-        return res.status(400).json({ message: 'Email already exists' });
+        return res.status(400).json({ error: "Email already exists" });
     }
     const salt = await bcrypt.genSalt(10);
     const secPass = await bcrypt.hash(req.body.password, salt);
@@ -42,7 +41,6 @@ router.post('/createuser', [
 })
 
 //Route 2: Login a user using POST method;
-
 router.post('/login', [
     body('email', 'Enter a valid E-mail').isEmail(),
     body('password', 'Password cannot be blank').exists()
@@ -76,7 +74,6 @@ router.post('/login', [
 })
 
 //Route 3: Get loggedin user details using POST method;
-
 router.post('/getuser', fetchUser, async (req, res) => {
 try{
     const userId = req.user;
