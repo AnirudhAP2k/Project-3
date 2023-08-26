@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react";
+import Notes from "./Notes";
 
 function Home() {
   return (
-    <div>
-      This is home;
-    </div>
-  )
+    <>
+      <Notes />
+    </>
+  );
 }
 
-export default Home
+export default Home;

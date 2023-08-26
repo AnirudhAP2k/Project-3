@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/fetchallnotes', fetchUser, async (req, res) => {
     try {
         const notes = await Notes.find({ user: req.user })
-        res.json(notes);
+        res.json({"Notes": notes});
     } catch (error) {
         console.error(error.message);
         return res.status(500).send("Internal Server Error")
