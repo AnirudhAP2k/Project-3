@@ -1,4 +1,4 @@
-import React, { useContext,  useState } from "react";
+import React, { useContext, useState } from "react";
 import noteContext from "../context/NoteContext";
 import editImg from "../edit.png";
 import delImg from "../delete.png";
@@ -8,11 +8,11 @@ const Noteitem = (props) => {
   const { deleteNote, editNote } = context;
   let { note } = props;
 
-  const [ notes, setNotes ] = useState(note)
+  const [notes, setNotes] = useState(note);
 
   const onChange = (e) => {
-    setNotes({...notes, [e.target.name]: e.target.value});
-}
+    setNotes({ ...notes, [e.target.name]: e.target.value });
+  };
   return (
     <>
       <div
@@ -30,41 +30,42 @@ const Noteitem = (props) => {
               </h1>
             </div>
             <div className="modal-body">
-          <div className="mb-3">
+              <div className="mb-3">
                 <label htmlFor="title" className="form-label">
-                Title
+                  Title
                 </label>
                 <input
-                type="text"
-                className="form-control"
-                name="title"
-                value={notes.title}
-                onChange={onChange}
+                  type="text"
+                  className="form-control"
+                  name="title"
+                  value={notes.title}
+                  onChange={onChange}
                 />
-          </div>
-          <div className="mb-3">
+              </div>
+              <div className="mb-3">
                 <label htmlFor="description" className="form-label">
-                Description
+                  Description
                 </label>
                 <input
-                type="text"
-                className="form-control"
-                name="description"
-                value={notes.description}
-                onChange={onChange}
+                  type="text"
+                  className="form-control"
+                  name="description"
+                  value={notes.description}
+                  onChange={onChange}
                 />
-          </div> <div className="mb-3">
+              </div>{" "}
+              <div className="mb-3">
                 <label htmlFor="tag" className="form-label">
-                Tag
+                  Tag
                 </label>
                 <input
-                type="text"
-                className="form-control"
-                name="tag"
-                value={notes.tag}
-                onChange={onChange}
+                  type="text"
+                  className="form-control"
+                  name="tag"
+                  value={notes.tag}
+                  onChange={onChange}
                 />
-          </div>
+              </div>
             </div>
             <div className="modal-footer">
               <button
@@ -74,7 +75,14 @@ const Noteitem = (props) => {
               >
                 Close
               </button>
-              <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={()=>{editNote( note._id, notes.title, notes.description, notes.tag)}}>
+              <button
+                type="button"
+                className="btn btn-primary"
+                data-bs-dismiss="modal"
+                onClick={() => {
+                  editNote(note._id, notes.title, notes.description, notes.tag);
+                }}
+              >
                 Update Note
               </button>
             </div>
@@ -86,6 +94,12 @@ const Noteitem = (props) => {
           <div className="card-body">
             <h5 className="card-title">{note.title}</h5>
             <p className="card-text">{note.description}</p>
+            <span
+            className="position-absolute top-0 translate-middle badge rounded-pill bg-dark"
+            style={{ left: "50%" }}
+          >
+            {note.tag}
+          </span>
             <div className="container">
               <img
                 className="mx-1"
@@ -108,6 +122,6 @@ const Noteitem = (props) => {
       </div>
     </>
   );
-}
+};
 
 export default Noteitem;
