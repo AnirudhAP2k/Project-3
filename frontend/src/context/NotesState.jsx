@@ -5,6 +5,7 @@ import Alert from "../components/Alert";
 const NoteState = (props) => {
   const host = "http://localhost:5000";
   let Notes = [];
+  const token = localStorage.getItem("auth-token");
   const [notes, setNotes] = useState(Notes);
 
   const getNotes = async () => {
@@ -12,13 +13,11 @@ const NoteState = (props) => {
       method: "GET",
       headers: {
         "Content-type": "application-json",
-        "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjRlNDc0MTU2YmI0OTkwZTViNmM2Y2ZlIiwiaWF0IjoxNjkyNjkzNTUwfQ.ZWXXsKzrfUUd4ESyq_FQyn4txYaxk-ZvkKLIT76u3ac",
+        "auth-token": token
       },
     });
     const json = await response.json()
     Notes = json.notes;
-    // console.log(Notes);
     setNotes(Notes);
   };
 
@@ -28,8 +27,7 @@ const NoteState = (props) => {
         method: "POST",
         headers: {
           "Content-type": "application/json",
-          "auth-token":
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjRlNDc0MTU2YmI0OTkwZTViNmM2Y2ZlIiwiaWF0IjoxNjkyNjkzNTUwfQ.ZWXXsKzrfUUd4ESyq_FQyn4txYaxk-ZvkKLIT76u3ac",
+          "auth-token": token
         },
         body: JSON.stringify({title, description, tag})
       });
@@ -44,8 +42,7 @@ const NoteState = (props) => {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
-        "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjRlNDc0MTU2YmI0OTkwZTViNmM2Y2ZlIiwiaWF0IjoxNjkyNjkzNTUwfQ.ZWXXsKzrfUUd4ESyq_FQyn4txYaxk-ZvkKLIT76u3ac",
+        "auth-token": token
       },
       body: JSON.stringify({title, description, tag})
     });
@@ -58,8 +55,7 @@ const NoteState = (props) => {
         method: "DELETE",
         headers: {
           "Content-type": "application/json",
-          "auth-token":
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjRlNDc0MTU2YmI0OTkwZTViNmM2Y2ZlIiwiaWF0IjoxNjkyNjkzNTUwfQ.ZWXXsKzrfUUd4ESyq_FQyn4txYaxk-ZvkKLIT76u3ac",
+          "auth-token": token
         },
       });
       <Alert alert={response.status}/>

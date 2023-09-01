@@ -18,7 +18,7 @@ function AddNote() {
   return (
     <div>
       <div className="justify-flex my-3">
-        <h2>Add a Note</h2>
+        <h2 style={{marginTop: "40px"}}>Add a Note</h2>
         <form className="my-4">
           <div className="mb-3">
                 <label htmlFor="title" className="form-label">
@@ -29,7 +29,7 @@ function AddNote() {
                 className="form-control"
                 id="title"
                 value={note.title}
-                placeholder="Enter atleast 2 character required"
+                placeholder='"Enter atleast 2 character"'
                 onChange={onChange}
                 />
           </div>
@@ -42,7 +42,7 @@ function AddNote() {
                 className="form-control"
                 id="description"
                 value={note.description}
-                placeholder="Enter atleast 5 character required"
+                placeholder='"Enter atleast 5 character"'
                 onChange={onChange}
                 />
           </div> <div className="mb-3">
@@ -54,7 +54,7 @@ function AddNote() {
                 className="form-control"
                 id="tag"
                 value={note.tag}
-                placeholder="Personal"
+                placeholder='"Personal"'
                 onChange={onChange}
                 />
           </div>

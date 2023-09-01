@@ -6,7 +6,7 @@ import delImg from "../delete.png";
 const Noteitem = (props) => {
   const context = useContext(noteContext);
   const { deleteNote, editNote } = context;
-  let { note } = props;
+  const { note } = props;
 
   const [notes, setNotes] = useState(note);
 
