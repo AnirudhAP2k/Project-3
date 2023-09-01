@@ -20,7 +20,7 @@ const Login = () => {
     setCredentials({ email: credentials.email, password: "" });
     const result = await response.json();
     if (result.success) {
-      // console.log(result.authToken)
+      console.log(result.authToken)
       localStorage.setItem("auth-token", result.authToken);
       navigate("/");
     } else {
