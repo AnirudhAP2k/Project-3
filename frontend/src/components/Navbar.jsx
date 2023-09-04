@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useLocation} from "react-router-dom";
+import noteContext from '../context/NoteContext';
 
 function Navbar() {
+  const context = useContext(noteContext)
+  const { showAlert } = context;
+
   let location = useLocation();
 
   const handleLogout =() => {
-    localStorage.removeItem('auth-token')
+    localStorage.removeItem("auth-token");
+   showAlert("LogOut Successful", "success");
   }
   
   return (

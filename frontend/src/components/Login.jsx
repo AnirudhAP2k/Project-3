@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import noteContext from '../context/NoteContext';
 
 const Login = () => {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
+  const context = useContext(noteContext)
+  const { showAlert } = context;
   let navigate = useNavigate();
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,11 +24,11 @@ const Login = () => {
     setCredentials({ email: credentials.email, password: "" });
     const result = await response.json();
     if (result.success) {
-      console.log(result.authToken)
       localStorage.setItem("auth-token", result.authToken);
+      showAlert("LogIn Successful", "success");
       navigate("/");
     } else {
-      return alert(result.error);
+      return showAlert(result.error, "danger")
     }
   };
   const onChange = (e) => {
@@ -33,10 +37,10 @@ const Login = () => {
 
   return (
     <div>
-      <h1 className="my-4" style={{ marginTop: "40px" }}>
+      <h1 className="container" style={{ marginTop: "50px" }}>
         Login
       </h1>
-      <form className="container" onSubmit={handleSubmit}>
+      <form className="container my-3" onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">
             Email address

@@ -1,45 +1,64 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import noteContext from "../context/NoteContext";
 
 const SignIn = () => {
-  const [credentials, setCredentials] = useState({name: "", email: "", password: "", cPassword: ""})
-    let navigate = useNavigate();
+  const [credentials, setCredentials] = useState({
+    name: "",
+    email: "",
+    password: "",
+    cPassword: "",
+  });
+  const context = useContext(noteContext);
+  const { showAlert } = context;
+  let navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if(credentials.cPassword === credentials.password){
-            const response = await fetch("http://localhost:5000/api/auth/createuser", {
-              method: "POST",
-              headers: {
-                "Content-type": "application/json",
-              },
-              body: JSON.stringify({name: credentials.name, email: credentials.email, password: credentials.password})
-            });
-            // setCredentials({name: credentials.name, email: credentials.email, password: "", cPassword: credentials.cPassword})
-            const result = await response.json();
-            if(result.success){
-                navigate('/login');
-            }
-            else{
-              console.log(result)
-                return alert(result.error);
-            }
-          }
-        else{
-          setCredentials({name: credentials.name, email: credentials.email, password: "", cPassword: ""})
-          return alert("Invalid Credentials")
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (credentials.cPassword === credentials.password) {
+      const response = await fetch(
+        "http://localhost:5000/api/auth/createuser",
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            name: credentials.name,
+            email: credentials.email,
+            password: credentials.password,
+          }),
         }
+      );
+      // setCredentials({name: credentials.name, email: credentials.email, password: "", cPassword: credentials.cPassword})
+      const result = await response.json();
+      if (result.success) {
+        showAlert("Created Account Successfully. Please Log In", "success");
+        navigate("/login");
+      } else {
+        console.log(result);
+        return showAlert(result.error, "danger");
       }
-          const onChange = (e) => {
-            setCredentials({ ...credentials, [e.target.name]: e.target.value });
-          };
+    } else {
+      setCredentials({
+        name: credentials.name,
+        email: credentials.email,
+        password: "",
+        cPassword: "",
+      });
+      return showAlert("Invalid Credentials", "danger");
+    }
+  };
+  const onChange = (e) => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
 
   return (
     <div>
-      <h1 className="my-4" style={{ marginTop: "40px" }}>
+      <h1 className="container" style={{ marginTop: "50px" }}>
         SignUp
       </h1>
-      <form className="container" onSubmit={handleSubmit}>
+      <form className="container my-3" onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="name" className="form-label">
             Full Name

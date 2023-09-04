@@ -3,13 +3,14 @@ import noteContext from "../context/NoteContext";
 
 function AddNote() {
     const context = useContext(noteContext);
-    const { addNote } = context;
+    const { addNote, showAlert } = context;
 
     const [note, setNote] = useState({title: "", description: "", tag: ""})
 
     const handleClick = (e) => {
         e.preventDefault();
         addNote(note.title, note.description, note.tag);
+        showAlert("Note Added Successfully", "success");
         setNote({title: "", description: "", tag: ""})
     }
     const onChange = (e) => {
@@ -18,7 +19,7 @@ function AddNote() {
   return (
     <div>
       <div className="justify-flex my-3">
-        <h2 style={{marginTop: "40px"}}>Add a Note</h2>
+        <h2 style={{marginTop: "50px"}}>Add a Note</h2>
         <form className="my-4">
           <div className="mb-3">
                 <label htmlFor="title" className="form-label">

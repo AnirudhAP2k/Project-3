@@ -5,7 +5,7 @@ import delImg from "../delete.png";
 
 const Noteitem = (props) => {
   const context = useContext(noteContext);
-  const { deleteNote, editNote } = context;
+  const { deleteNote, editNote, showAlert } = context;
   const { note } = props;
 
   const [notes, setNotes] = useState(note);
@@ -76,11 +76,13 @@ const Noteitem = (props) => {
                 Close
               </button>
               <button
+              disabled={note.title.length === notes.title.length && note.description.length === notes.description.length}
                 type="button"
                 className="btn btn-primary"
                 data-bs-dismiss="modal"
                 onClick={() => {
                   editNote(note._id, notes.title, notes.description, notes.tag);
+                  showAlert("Note Updated Successfully", "success");
                 }}
               >
                 Update Note
@@ -106,7 +108,7 @@ const Noteitem = (props) => {
                 src={delImg}
                 alt=""
                 height="25px"
-                onClick={() => deleteNote(note._id)}
+                onClick={() => {deleteNote(note._id); showAlert("Note Deleted Successfully", "success"); }}
               />
               <img
                 className="mx-1"

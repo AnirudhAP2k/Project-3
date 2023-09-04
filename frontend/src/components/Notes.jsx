@@ -16,18 +16,19 @@ function Notes() {
     else{
       navigate('/login')
     }
+    // eslint-disable-next-line
   }, []);
   
   return (
     <>
-      <AddNote />
+      <AddNote/>
       <div className="row my-3">
         <h2>Your Notes</h2>
         <div className="container mx-2">
-          {notes.length<1 && "There are no notes to display. Add a note"}
+          {notes.length === 0 && "There are no notes to display. Add a note"}
         </div>
         {notes.map((note) => {
-          return <Noteitem key={note._id} note={note} />;
+          return <Noteitem key={note._id} note={note}/>;
         })}
       </div>
     </>
