@@ -6,7 +6,7 @@ import AddNote from "./AddNote";
 
 function Notes() {
   const context = useContext(noteContext);
-  const { notes, getNotes } = context;
+  const { notes, getNotes, showAlert } = context;
   let navigate = useNavigate(); 
 
   useEffect(() => {
@@ -14,6 +14,7 @@ function Notes() {
     getNotes();
     }
     else{
+      showAlert("Log In Required", "danger")
       navigate('/login')
     }
     // eslint-disable-next-line
